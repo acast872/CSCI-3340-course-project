@@ -1,6 +1,8 @@
 # CSCI-3340-course-project
 Core Functionality (CRUD)
 
+___________________________
+
 • Create: events, room reservations, groups, announcements, weekly schedules
 
 • Read: search groups, browse announcements, view availability, check schedules
@@ -9,9 +11,12 @@ Core Functionality (CRUD)
 
 • Delete: cancel events, remove posts or groups (with moderation logs)
 
+__________________________
+
 
 User Roles
 
+____________________________
 • Guest: view announcements and rooms
 
 • Member: join groups, reserve rooms, post announcements
@@ -24,9 +29,9 @@ User Roles
 
 • Admin: system-wide management
 
-
+_____________________________
 Agile Sprints (6-Week Plan)
-
+______________________________
 Sprint 0: setup & wireframes
 
 Sprint 1: profiles & groups
