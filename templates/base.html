@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Site{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="{% url 'home' %}">Home</a>
+        {% if user.is_authenticated %}
+          <form action="{% url 'logout' %}" method="post" style="display:inline">
+            {% csrf_token %}
+            <button type="submit" style="background:none;border:none;padding:0;cursor:pointer;text-decoration:underline;color:inherit;">
+              Logout
+            </button>
+          </form>
+        {% else %}
+          {% url 'login' as login_url %}
+          {% if login_url %}
+            <a href="{{ login_url }}">Login</a>
+          {% endif %}
+          <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+      </nav>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
