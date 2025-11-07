@@ -1,0 +1,8 @@
+<h2>My Reservations</h2>
+<ul>
+  {% for res in reservations %}
+    <li>
+      {{ res.room.name }} — {{ res.start_time }} to {{ res.end_time }} — {{ res.status }}
+    </li>
+  {% endfor %}
+</ul>
