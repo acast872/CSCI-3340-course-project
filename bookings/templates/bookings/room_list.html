@@ -1,0 +1,9 @@
+<h1>Available Rooms</h1>
+<ul>
+  {% for room in rooms %}
+    <li>
+      {{ room.name }} ({{ room.capacity }} people)
+      <a href="{% url 'reserve_room' room.id %}">Reserve</a>
+    </li>
+  {% endfor %}
+</ul>
