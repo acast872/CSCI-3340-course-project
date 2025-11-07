@@ -22,6 +22,9 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path("admin/", admin.site.urls),
 
+    #Booking page
+    path('', include('bookings.urls')),
+
     #Django's built-in auth views & login/logout/password reset
     path('accounts/', include('django.contrib.auth.urls')),
     
