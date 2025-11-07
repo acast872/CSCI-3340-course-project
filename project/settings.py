@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+<<<<<<< HEAD
+=======
+    'accounts',
+>>>>>>> SilverRed-init
 ]
 
 MIDDLEWARE = [
@@ -76,6 +80,12 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+<<<<<<< HEAD
+=======
+        'OPTIONS': {
+            'timeout' : 10,
+        }
+>>>>>>> SilverRed-init
     }
 }
 
@@ -120,3 +130,12 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+<<<<<<< HEAD
+=======
+
+TEMPLATES[0]['DIRS'] = [BASE_DIR / 'templates']
+
+# After login/logout, where should users go?
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+>>>>>>> SilverRed-init
