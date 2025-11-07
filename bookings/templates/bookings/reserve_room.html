@@ -1,0 +1,7 @@
+<h2>Reserve {{ room.name }}</h2>
+<form method="post">
+  {% csrf_token %}
+  Start Time: <input type="datetime-local" name="start_time"><br>
+  End Time: <input type="datetime-local" name="end_time"><br>
+  <button type="submit">Book Room</button>
+</form>
