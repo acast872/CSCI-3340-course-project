@@ -16,12 +16,6 @@ Including another URLconf
 """
 
 from django.contrib import admin
-<<<<<<< HEAD
-from django.urls import path
-
-urlpatterns = [
-    path("admin/", admin.site.urls),
-=======
 from django.urls import path, include
 from django.views.generic import TemplateView
 
@@ -37,5 +31,4 @@ urlpatterns = [
     #Home page
     path('',TemplateView.as_view(template_name='home.html'), name='home'),
 
->>>>>>> SilverRed-init
 ]
