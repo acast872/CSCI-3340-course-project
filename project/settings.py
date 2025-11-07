@@ -124,12 +124,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-<<<<<<< HEAD
-=======
 
 TEMPLATES[0]['DIRS'] = [BASE_DIR / 'templates']
 
 # After login/logout, where should users go?
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
->>>>>>> SilverRed-init
