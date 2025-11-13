@@ -1,0 +1,17 @@
+<h1>Announcements</h1>
+
+{% if user.is_authenticated %}
+  <a href="{% url 'create_announcement' %}">Post New Announcement</a>
+{% endif %}
+
+<ul>
+  {% for ann in announcements %}
+    <li>
+      <h3>{{ ann.title }}</h3>
+      <p>{{ ann.content }}</p>
+      <small>By {{ ann.author.username }} on {{ ann.created_at }}</small>
+    </li>
+  {% empty %}
+    <p>No announcements yet.</p>
+  {% endfor %}
+</ul>
