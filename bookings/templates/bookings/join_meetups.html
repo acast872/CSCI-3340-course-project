@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Join a Meetup{% endblock %}
+
+{% block content %}
+<h1>Join a Meetup</h1>
+
+{% if meetups %}
+  <ul>
+    {% for meetup in meetups %}
+      <li>
+        {{ meetup.name }} — {{ meetup.room.name }} at {{ meetup.start_time }}
+        <a href="{% url 'join_meetup' meetup.id %}">Join</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No approved meetups available to join.</p>
+{% endif %}
+{% endblock %}

@@ -2,27 +2,27 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Room(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     capacity = models.IntegerField(default=1)
-    location = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return self.name
-
 
 class Reservation(models.Model):
     STATUS_CHOICES = [
         ('PENDING', 'Pending'),
         ('APPROVED', 'Approved'),
-        ('CANCELLED', 'Cancelled'),
+        ('REJECTED', 'Rejected'),
     ]
 
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    host = models.ForeignKey(User, on_delete=models.CASCADE)
+    participants = models.ManyToManyField(User, related_name='joined_meetups', blank=True)
+    name = models.CharField(max_length=200, default="Untitled Reservation")
+    description = models.TextField(default="No description provided")
+    start_time = models.DateTimeField(default="2025-11-13 12:00")  # placeholder default
+    end_time = models.DateTimeField(default="2025-11-13 13:00")    # placeholder default
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.room.name} reserved by {self.user.username}"
+        return f"{self.name} at {self.room.name}"

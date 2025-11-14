@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
+
 {% block content %}
-  <h1>Welcome</h1>
+  <h1>Welcome to GatherRound!</h1>
+
   {% if user.is_authenticated %}
     <p>Hi {{ user.username }}!</p>
+    <p>What would you like to do today?</p>
+    <ul>
+      <li><a href="{% url 'create_meetup' %}">Host a Meetup</a> – Reserve a room for your game or hobby.</li>
+      <li><a href="{% url 'join_meetups' %}">Join a Meetup</a> – See upcoming meetups you can join.</li>
+    </ul>
   {% else %}
-    <p><a href="{% url 'login' %}">Log in</a> or <a href="{% url 'signup' %}">create an account</a>.</p>
+    <p><a href="{% url 'login' %}">Log in</a> or <a href="{% url 'signup' %}">create an account</a> to start hosting or joining meetups.</p>
   {% endif %}
 {% endblock %}
