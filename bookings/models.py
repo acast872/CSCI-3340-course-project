@@ -8,6 +8,7 @@ class Room(models.Model):
     def __str__(self):
         return self.name
 
+
 class Reservation(models.Model):
     STATUS_CHOICES = [
         ('PENDING', 'Pending'),
@@ -18,10 +19,13 @@ class Reservation(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     host = models.ForeignKey(User, on_delete=models.CASCADE)
     participants = models.ManyToManyField(User, related_name='joined_meetups', blank=True)
-    name = models.CharField(max_length=200, default="Untitled Reservation")
-    description = models.TextField(default="No description provided")
-    start_time = models.DateTimeField(default="2025-11-13 12:00")  # placeholder default
-    end_time = models.DateTimeField(default="2025-11-13 13:00")    # placeholder default
+
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
 
     def __str__(self):

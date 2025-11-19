@@ -6,15 +6,7 @@
 
 <form method="post">
   {% csrf_token %}
-  <fieldset>
-    <legend>Meetup Info</legend>
-    {{ info_form.as_p }}
-  </fieldset>
-
-  <fieldset>
-    <legend>Schedule & Room</legend>
-    {{ meetup_form.as_p }}
-  </fieldset>
+  {{ form.as_p }}
 
   <button type="submit">Add Meetup</button>
 </form>

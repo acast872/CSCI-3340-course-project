@@ -4,29 +4,27 @@ from .models import Room, Reservation
 from django.utils import timezone
 from django.db.models import Q
 from django.contrib import messages
-from .forms import MeetupForm, MeetupInfoForm
+from .forms import CreateMeetupForm
 
 
 @login_required
 def create_meetup(request):
     if request.method == 'POST':
-        info_form = MeetupInfoForm(request.POST)
-        meetup_form = MeetupForm(request.POST)
-        if info_form.is_valid() and meetup_form.is_valid():
-            reservation = meetup_form.save(commit=False)
-            reservation.user = request.user
-            reservation.status = 'PENDING'  
-            reservation.created_at = timezone.now()
-            reservation.save()
+        form = CreateMeetupForm(request.POST)
+        if form.is_valid():
+            meetup = form.save(commit=False)
+            meetup.host = request.user
+            meetup.status = 'PENDING'
+            meetup.save()
+
+            meetup.participants.add(request.user)
+
+            messages.success(request, f"Meetup '{meetup.name}' created and awaiting approval!")
             return redirect('home')
     else:
-        info_form = MeetupInfoForm()
-        meetup_form = MeetupForm()
-    
-    return render(request, 'bookings/create_meetup.html', {
-        'info_form': info_form,
-        'meetup_form': meetup_form
-    })
+        form = CreateMeetupForm()
+
+    return render(request, 'bookings/create_meetup.html', {'form': form})
 
 @login_required
 def my_reservations(request):
@@ -83,8 +81,10 @@ def join_meetup(request, meetup_id):
     except Reservation.DoesNotExist:
         return HttpResponseNotFound("Meetup not found or not approved.")
 
-    meetup.participants.add(request.user)
-    meetup.save()
+    if request.user in meetup.participants.all():
+        messages.info(request, f"You already joined '{meetup.name}'.")
+    else:
+        meetup.participants.add(request.user)
+        messages.success(request, f"You have joined the meetup '{meetup.name}'!")
 
-    messages.success(request, f"You have joined the meetup '{meetup.name}'!")
     return redirect('join_meetups')
