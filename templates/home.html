@@ -2,16 +2,43 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <h1>Welcome to GatherRound!</h1>
+<style>
+  .background-fade {
+    position: relative;
+    overflow: hidden;
+  }
 
-  {% if user.is_authenticated %}
-    <p>Hi {{ user.username }}!</p>
-    <p>What would you like to do today?</p>
-    <ul>
-      <li><a href="{% url 'create_meetup' %}">Host a Meetup</a> – Reserve a room for your game or hobby.</li>
-      <li><a href="{% url 'join_meetups' %}">Join a Meetup</a> – See upcoming meetups you can join.</li>
-    </ul>
-  {% else %}
-    <p><a href="{% url 'login' %}">Log in</a> or <a href="{% url 'signup' %}">create an account</a> to start hosting or joining meetups.</p>
-  {% endif %}
+  .background-fade::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/images/d20.png"); /* change to your file path */
+    background-size: 60%;          /* adjust size */
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.07;                 /* fade effect */
+    z-index: -1;
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 10;
+  }
+</style>
+
+<div class="background-fade">
+  <div class="content-wrapper">
+    <h1>Welcome</h1>
+
+    {% if user.is_authenticated %}
+      <p>Hi {{ user.username }}!</p>
+    {% else %}
+      <p><a href="{% url 'login' %}">Log in</a> or <a href="{% url 'signup' %}">create an account</a>.</p>
+    {% endif %}
+  </div>
+</div>
+
 {% endblock %}
