@@ -1,0 +1,38 @@
+{% extends "bookings/base.html" %}
+
+{% block title %}Available Rooms{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Available Rooms</h1>
+
+<div class="card">
+    {% if rooms %}
+        <div class="reservations-list">
+            {% for room in rooms %}
+                <div class="reservation-row">
+                    <div class="reservation-main">
+                        <h2 class="reservation-room">{{ room.name }}</h2>
+                        <p class="reservation-location">
+                            {{ room.location }}
+                        </p>
+
+                        {% if room.description %}
+                            <p class="room-description">
+                                {{ room.description }}
+                            </p>
+                        {% endif %}
+                    </div>
+
+                    <div class="reservation-status-wrapper">
+                        <a href="{% url 'reserve_room' room.id %}" class="btn">
+                            Reserve
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No rooms are available right now.</p>
+    {% endif %}
+</div>
+{% endblock %}
