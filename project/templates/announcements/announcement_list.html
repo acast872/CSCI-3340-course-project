@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Announcements</h2>
+
+{% if announcements %}
+  {% for ann in announcements %}
+    <div class="card mb-3 p-3 shadow-sm">
+      <h4>{{ ann.title }}</h4>
+      <p>{{ ann.content }}</p>
+      <small>
+        By {{ ann.author.username }} • {{ ann.created_at|date:"M d, Y" }}
+      </small>
+    </div>
+  {% endfor %}
+{% else %}
+  <p>No announcements available.</p>
+{% endif %}
+
+{% endblock %}
