@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Pending Announcements</h2>
+
+{% if pending_announcements %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Content</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for ann in pending_announcements %}
+    <tr>
+      <td>{{ ann.title }}</td>
+      <td>{{ ann.author.username }}</td>
+      <td>{{ ann.content|truncatechars:80 }}</td>
+      <td>
+
+        <!-- ✅ APPROVE BUTTON -->
+        <form method="post" action="{% url 'approve_announcement' ann.id %}" style="display:inline;">
+          {% csrf_token %}
+          <button class="btn btn-success btn-sm">Approve</button>
+        </form>
+
+        <!-- ✅ REJECT BUTTON -->
+        <form method="post" action="{% url 'reject_announcement' ann.id %}" style="display:inline;">
+          {% csrf_token %}
+          <button class="btn btn-danger btn-sm">Reject</button>
+        </form>
+
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p>No pending announcements.</p>
+{% endif %}
+
+{% endblock %}
