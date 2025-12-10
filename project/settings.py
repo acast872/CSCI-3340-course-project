@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'accounts',
     'bookings',
-    'announcements',
+    'announcements.apps.AnnouncementsConfig',
+
 ]
 
 MIDDLEWARE = [
