@@ -1,39 +1,63 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required, permission_required
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import ListView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib import messages
+
 from .models import Announcement
-
-def announcement_list(request):
-    announcements = Announcement.objects.filter(status='APPROVED').order_by('-created_at')
-    return render(request, 'announcements/announcement_list.html', {'announcements': announcements})
+from .forms import AnnouncementForm
 
 
-@login_required
-def create_announcement(request):
-    if request.method == 'POST':
-        title = request.POST['title']
-        content = request.POST['content']
-        Announcement.objects.create(title=title, content=content, author=request.user)
-        return redirect('announcement_list')
-    return render(request, 'announcements/create_announcement.html')
+class AnnouncementListView(ListView):
+    model = Announcement
+    template_name = 'announcements/announcement_list.html'
+    context_object_name = 'announcements'
+    paginate_by = 20
+
+    def get_queryset(self):
+        return Announcement.objects.filter(status=Announcement.STATUS_APPROVED).order_by('-created_at')
 
 
-@permission_required('announcements.change_announcement')
-def moderate_announcements(request):
-    pending = Announcement.objects.filter(status='PENDING')
-    return render(request, 'announcements/moderate_announcements.html', {'pending': pending})
+class AnnouncementCreateView(LoginRequiredMixin, CreateView):
+    model = Announcement
+    form_class = AnnouncementForm
+    template_name = 'announcements/create_announcement.html'
+    success_url = reverse_lazy('announcement_list')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        # status remains PENDING by default
+        response = super().form_valid(form)
+        messages.success(self.request, "Announcement submitted for moderation.")
+        return response
 
 
-@permission_required('announcements.change_announcement')
-def approve_announcement(request, ann_id):
-    ann = get_object_or_404(Announcement, id=ann_id)
-    ann.status = 'APPROVED'
-    ann.save()
-    return redirect('moderate_announcements')
+class ModerateAnnouncementsView(PermissionRequiredMixin, ListView):
+    permission_required = ('announcements.can_moderate_announcements',)
+    template_name = 'announcements/moderate_announcements.html'
+    context_object_name = 'pending_announcements'
+    paginate_by = 25
+
+    def get_queryset(self):
+        return Announcement.objects.filter(status=Announcement.STATUS_PENDING).order_by('created_at')
 
 
-@permission_required('announcements.change_announcement')
-def reject_announcement(request, ann_id):
-    ann = get_object_or_404(Announcement, id=ann_id)
-    ann.status = 'REJECTED'
-    ann.save()
-    return redirect('moderate_announcements')
+class ApproveAnnouncementView(PermissionRequiredMixin, View):
+    permission_required = ('announcements.can_moderate_announcements',)
+
+    def post(self, request, pk):
+        ann = get_object_or_404(Announcement, pk=pk)
+        ann.approve()
+        messages.success(request, f"Announcement '{ann.title}' approved.")
+        return redirect('moderate_announcements')
+
+
+class RejectAnnouncementView(PermissionRequiredMixin, View):
+    permission_required = ('announcements.can_moderate_announcements',)
+
+    def post(self, request, pk):
+        ann = get_object_or_404(Announcement, pk=pk)
+        ann.reject()
+        messages.success(request, f"Announcement '{ann.title}' rejected.")
+        return redirect('moderate_announcements')
