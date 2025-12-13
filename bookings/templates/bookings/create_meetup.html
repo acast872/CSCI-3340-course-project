@@ -1,16 +1,13 @@
-{% extends 'bookings/base.html' %}
-
+{% extends "base.html" %}
 {% block title %}Create Meetup{% endblock %}
 
 {% block content %}
-<h1 class="page-title">Create a Meetup</h1>
+<h1>Host a Meetup</h1>
 
-<div class="card">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn" type="submit">Create Meetup</button>
-    </form>
-</div>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
 
+  <button type="submit">Add Meetup</button>
+</form>
 {% endblock %}

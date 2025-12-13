@@ -1,47 +1,31 @@
-{% extends "bookings/base.html" %}
+{% extends "base.html" %}
 {% block title %}Reserve {{ room.name }}{% endblock %}
 
 {% block content %}
+<h1>Reserve {{ room.name }}</h1>
 
-<h1 class="page-title">Reserve {{ room.name }}</h1>
+{% if messages %}
+  <ul>
+    {% for message in messages %}
+      <li style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %};">
+        {{ message }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
 
-<div class="card reservation-form-card">
-  {% if messages %}
-    <div class="message-box">
-      {% for message in messages %}
-        <div class="message {{ message.tags }}">
-          {{ message }}
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
+<form method="post">
+  {% csrf_token %}
+  <label for="start_time">Start Time:</label>
+  <input type="datetime-local" name="start_time" id="start_time" required><br><br>
 
-  <form method="post" class="reservation-form">
-    {% csrf_token %}
+  <label for="end_time">End Time:</label>
+  <input type="datetime-local" name="end_time" id="end_time" required><br><br>
 
-    <div class="form-field">
-      <label for="start_time">Start Time</label>
-      <input type="datetime-local" name="start_time" id="start_time" required>
-    </div>
+  <p>Room Location: {{ room.location }}</p>
 
-    <div class="form-field">
-      <label for="end_time">End Time</label>
-      <input type="datetime-local" name="end_time" id="end_time" required>
-    </div>
+  <button type="submit">Reserve Room</button>
+</form>
 
-    <div class="room-info">
-      <span class="label">Location:</span>
-      <span class="value">{{ room.location }}</span>
-    </div>
-
-    <button type="submit" class="btn">Reserve Room</button>
-  </form>
-</div>
-
-<p class="back-link-wrapper">
-  <a href="{% url 'room_list' %}" class="btn-secondary">
-    ← Back to Available Rooms
-  </a>
-</p>
-
+<p><a href="{% url 'room_list' %}">Back to Available Rooms</a></p>
 {% endblock %}

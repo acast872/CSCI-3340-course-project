@@ -1,46 +1,35 @@
-{% extends "bookings/base.html" %}
-
+{% extends "base.html" %}
 {% block title %}My Reservations{% endblock %}
 
 {% block content %}
 <h1>My Reservations</h1>
 
-<div class="card">
+{% if reservations %}
+  <ul>
+    {% for res in reservations %}
+      <li>
+        <strong>{{ res.room.name }}</strong> — Location: {{ res.room.location }}<br>
+        From: {{ res.start_time|date:"M d, Y H:i" }}<br>
+        To: {{ res.end_time|date:"M d, Y H:i" }}<br>
+        Status: 
+        <span class="{% if res.status == 'PENDING' %}pending{% elif res.status == 'APPROVED' %}approved{% else %}cancelled{% endif %}">
+          {{ res.status }}
+        </span>
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>You have no reservations at the moment.</p>
+{% endif %}
 
-    {% if reservations %}
-        <div class="reservations-list">
-            {% for res in reservations %}
-                <div class="reservation-row">
-                    <div class="reservation-main">
-                        <h2 class="reservation-room">{{ res.room.name }}</h2>
-                        <p class="reservation-location">{{ res.room.location }}</p>
+<p><a href="{% url 'room_list' %}">Back to Available Rooms</a></p>
 
-                        <div class="reservation-times">
-                            <p><strong>From:</strong> {{ res.start_time|date:"M d, Y · H:i" }}</p>
-                            <p><strong>To:</strong> {{ res.end_time|date:"M d, Y · H:i" }}</p>
-                        </div>
-                    </div>
-
-                    <div class="reservation-status-wrapper">
-                        <span class="status-pill
-                            {% if res.status == 'PENDING' %}status-pending
-                            {% elif res.status == 'APPROVED' %}status-approved
-                            {% else %}status-cancelled{% endif %}">
-                            {{ res.status }}
-                        </span>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p>You have no reservations at the moment.</p>
-    {% endif %}
-
-</div>
-
-<p class="back-link-wrapper">
-    <a href="{% url 'room_list' %}" class="btn-secondary">
-        ← Back to Available Rooms
-    </a>
-</p>
+<style>
+  .pending { color: orange; font-weight: bold; }
+  .approved { color: green; font-weight: bold; }
+  .cancelled { color: red; font-weight: bold; }
+  li { margin-bottom: 10px; }
+  hr { border: 0; border-top: 1px solid #ccc; margin: 10px 0; }
+</style>
 {% endblock %}

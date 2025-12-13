@@ -1,20 +1,27 @@
-{% extends 'bookings/base.html' %}
-
-{% block title %}Join Meetups{% endblock %}
+{% extends "base.html" %}
+{% block title %}Join a Meetup{% endblock %}
 
 {% block content %}
-<h1>Available Meetups</h1>
+<h1>Join a Meetup</h1>
 
-{% for meetup in meetups %}
-<div class="card">
-    <h2>{{ meetup.title }}</h2>
-    <p>{{ meetup.description }}</p>
-    <p><strong>Time:</strong> {{ meetup.time }}</p>
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
 
-    <a class="btn" href="{% url 'join_meetup' meetup.id %}">Join</a>
-</div>
-{% empty %}
-<p>No meetups available right now.</p>
-{% endfor %}
-
+{% if meetups %}
+  <ul>
+    {% for meetup in meetups %}
+      <li>
+        {{ meetup.name }} — {{ meetup.room.name }} at {{ meetup.start_time }}
+        <a href="{% url 'join_meetup' meetup.id %}">Join</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No approved meetups available to join.</p>
+{% endif %}
 {% endblock %}

@@ -1,19 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib import messages
-from django.db.models import Q
-from django.http import HttpResponseNotFound
-
 from .models import Room, Reservation
+from django.utils import timezone
+from django.db.models import Q
+from django.contrib import messages
 from .forms import CreateMeetupForm
 
 
 @login_required
-def room_list(request):
-    rooms = Room.objects.all()
-    return render(request, 'bookings/room_list.html', {'rooms': rooms})
-
-
 def create_meetup(request):
     if request.method == 'POST':
         form = CreateMeetupForm(request.POST)
@@ -32,20 +26,10 @@ def create_meetup(request):
 
     return render(request, 'bookings/create_meetup.html', {'form': form})
 
-
 @login_required
 def my_reservations(request):
-    # user is either the host or a participant
-    reservations = (
-        Reservation.objects
-        .filter(Q(host=request.user) | Q(participants=request.user))
-        .select_related('room')
-        .distinct()
-        .order_by('-start_time')
-    )
-
+    reservations = Reservation.objects.filter(user=request.user)
     return render(request, 'bookings/my_reservations.html', {'reservations': reservations})
-
 
 def join_meetups(request):
     approved_meetups = Reservation.objects.filter(status='APPROVED')
@@ -53,11 +37,9 @@ def join_meetups(request):
         'meetups': approved_meetups
     })
 
-
 @login_required
 def reserve_room(request, room_id):
     room = get_object_or_404(Room, id=room_id)
-
     if request.method == 'POST':
         start = request.POST['start_time']
         end = request.POST['end_time']
@@ -75,10 +57,9 @@ def reserve_room(request, room_id):
 
         Reservation.objects.create(
             room=room,
-            host=request.user,      # ✅ use host, not user
+            user=request.user,
             start_time=start,
-            end_time=end,
-            status='PENDING',
+            end_time=end
         )
 
         messages.success(request, "Room reserved successfully!")
@@ -86,14 +67,12 @@ def reserve_room(request, room_id):
 
     return render(request, 'bookings/reserve_room.html', {'room': room})
 
-
 @permission_required('bookings.change_reservation')
 def approve_reservation(request, res_id):
     res = get_object_or_404(Reservation, id=res_id)
     res.status = 'APPROVED'
     res.save()
     return redirect('admin:index')
-
 
 @login_required
 def join_meetup(request, meetup_id):
