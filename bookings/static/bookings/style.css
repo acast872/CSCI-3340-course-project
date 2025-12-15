@@ -383,3 +383,14 @@ h1, h2, h3 {
 .logout-link:hover {
     color: white;
 }
+
+.nav-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
