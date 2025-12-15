@@ -5,7 +5,7 @@
   <h1>Welcome</h1>
 
   {% if user.is_authenticated %}
-    <p class="home-text">Hi {{user.name}}!</p>
+    <p class="home-text">Hi {{user.first_name}} {{user.last_name}}!</p>
   {% else %}
     <p class="home-text">
       <a href="{% url 'login' %}">Log In</a>

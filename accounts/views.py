@@ -4,13 +4,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
+from .forms import CustomSignUpForm
 
 # Create your views here.
 class SignUpView(CreateView):
-    form_class = UserCreationForm
+    form_class = CustomSignUpForm
     template_name = 'registration/signup.html'
     success_url = reverse_lazy('login')
-
+    
 class StaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
     def test_func(self):
         return self.request.user.is_staff #Staff Only View

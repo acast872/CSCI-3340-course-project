@@ -186,3 +186,87 @@ logout-form {
     outline: none;
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
 }
+
+.auth-container {
+    max-width: 460px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.auth-container h1 {
+    text-align: center;
+    margin-bottom: 1.75rem;
+    color: #111827;
+}
+
+/* Django form layout */
+.auth-form p {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+}
+
+/* Labels */
+.auth-form label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: #374151;
+}
+
+/* Inputs */
+.auth-form input {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.95rem;
+    border-radius: 0.45rem;
+    border: 1px solid #d1d5db;
+}
+
+.auth-form input:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* Help text (THIS cleans it up a lot) */
+.auth-form .helptext {
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+/* Password rules list */
+.auth-form ul {
+    margin: 0.4rem 0 0.6rem 1.2rem;
+    padding: 0;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+/* Submit button */
+.auth-form .btn {
+    margin-top: 0.75rem;
+    width: 100%;
+}
+
+/* Footer */
+.auth-footer {
+    margin-top: 1.25rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.auth-footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
