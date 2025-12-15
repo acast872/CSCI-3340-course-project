@@ -1,0 +1,188 @@
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    background: #f4f5f7;
+}
+
+.navbar {
+    background: #111827;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: #e5e7eb;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    color: white;
+}
+
+logout-form {
+    display: inline;
+}
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+}
+
+.navbar nav a,
+.logout-link {
+    color: #e5e7eb;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-weight: 500;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+}
+
+.navbar nav a:hover,
+.logout-link:hover {
+    color: white;
+}
+
+.nav-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/* Home page layout */
+.home-container {
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.home-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #111827;
+}
+
+.home-text {
+    font-size: 1rem;
+    color: #374151;
+}
+
+.home-text a {
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.home-text a:hover {
+    text-decoration: underline;
+}
+
+/* Auth (login / signup) pages */
+.auth-container {
+    max-width: 420px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.auth-container h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #111827;
+}
+
+/* Django forms rendered with form.as_p */
+.auth-form p {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.auth-form label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #374151;
+}
+
+.auth-form input {
+    padding: 0.55rem 0.75rem;
+    font-size: 0.95rem;
+    border-radius: 0.45rem;
+    border: 1px solid #d1d5db;
+}
+
+.auth-form input:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.auth-form .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.auth-footer {
+    margin-top: 1.25rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.auth-footer a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Primary button */
+.btn {
+    display: inline-block;
+    width: 100%;
+    padding: 0.65rem 1rem;
+    background-color: #2563eb; /* blue */
+    color: #ffffff;           /* white text */
+    border: none;
+    border-radius: 0.6rem;    /* rounded */
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #1d4ed8; /* darker blue */
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.35);
+}
