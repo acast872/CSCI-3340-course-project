@@ -1,0 +1,20 @@
+{% extends 'bookings/base.html' %}
+
+{% block title %}Join Meetups{% endblock %}
+
+{% block content %}
+<h1>Available Meetups</h1>
+
+{% for meetup in meetups %}
+<div class="card">
+    <h2>{{ meetup.title }}</h2>
+    <p>{{ meetup.description }}</p>
+    <p><strong>Time:</strong> {{ meetup.time }}</p>
+
+    <a class="btn" href="{% url 'join_meetup' meetup.id %}">Join</a>
+</div>
+{% empty %}
+<p>No meetups available right now.</p>
+{% endfor %}
+
+{% endblock %}

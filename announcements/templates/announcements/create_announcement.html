@@ -1,0 +1,8 @@
+<h2>New Announcement</h2>
+<form method="post">
+  {% csrf_token %}
+  Title: <input type="text" name="title" required><br>
+  Content:<br>
+  <textarea name="content" rows="4" cols="50" required></textarea><br>
+  <button type="submit">Submit for Approval</button>
+</form>

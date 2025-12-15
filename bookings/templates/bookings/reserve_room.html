@@ -1,0 +1,47 @@
+{% extends "bookings/base.html" %}
+{% block title %}Reserve {{ room.name }}{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">Reserve {{ room.name }}</h1>
+
+<div class="card reservation-form-card">
+  {% if messages %}
+    <div class="message-box">
+      {% for message in messages %}
+        <div class="message {{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form method="post" class="reservation-form">
+    {% csrf_token %}
+
+    <div class="form-field">
+      <label for="start_time">Start Time</label>
+      <input type="datetime-local" name="start_time" id="start_time" required>
+    </div>
+
+    <div class="form-field">
+      <label for="end_time">End Time</label>
+      <input type="datetime-local" name="end_time" id="end_time" required>
+    </div>
+
+    <div class="room-info">
+      <span class="label">Location:</span>
+      <span class="value">{{ room.location }}</span>
+    </div>
+
+    <button type="submit" class="btn">Reserve Room</button>
+  </form>
+</div>
+
+<p class="back-link-wrapper">
+  <a href="{% url 'room_list' %}" class="btn-secondary">
+    ← Back to Available Rooms
+  </a>
+</p>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+<h2>Pending Announcements</h2>
+<ul>
+  {% for ann in pending %}
+    <li>
+      <strong>{{ ann.title }}</strong> by {{ ann.author.username }}
+      <p>{{ ann.content }}</p>
+      <a href="{% url 'approve_announcement' ann.id %}">Approve</a> |
+      <a href="{% url 'reject_announcement' ann.id %}">Reject</a>
+    </li>
+  {% empty %}
+    <p>No pending announcements.</p>
+  {% endfor %}
+</ul>

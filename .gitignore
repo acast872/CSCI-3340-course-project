@@ -1,0 +1,29 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folders
+virt/
+env/
+.venv/
+
+# Django migrations (optional, but usually you want to keep them)
+# migrations/
+
+# VS Code settings
+.vscode/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Database files
+db.sqlite3
+
+# Logs
+*.log
+
+# Others
+*.sqlite3
