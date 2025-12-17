@@ -12,6 +12,7 @@
             {% for res in reservations %}
                 <div class="reservation-row">
                     <div class="reservation-main">
+                        <h2> {{res.name}} </h2>
                         <h2 class="reservation-room">{{ res.room.name }}</h2>
                         <p class="reservation-location">{{ res.room.location }}</p>
 
