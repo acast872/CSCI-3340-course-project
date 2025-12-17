@@ -9,7 +9,7 @@
 <div class="card">
     <h2>{{ meetup.title }}</h2>
     <p>{{ meetup.description }}</p>
-    <p><strong>Time:</strong> {{ meetup.time }}</p>
+    <p><strong>Time:</strong> {{ start.time }} - {{ end.time }}</p>
 
     <a class="btn" href="{% url 'join_meetup' meetup.id %}">Join</a>
 </div>
