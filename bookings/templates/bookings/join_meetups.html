@@ -9,7 +9,12 @@
 <div class="card">
     <h2>{{ meetup.title }}</h2>
     <p>{{ meetup.description }}</p>
-    <p><strong>Time:</strong> {{ start.time }} - {{ end.time }}</p>
+    <p>
+        <strong>Time:</strong>
+        {{ meetup.start_time|date:"M d, Y g:i A" }} –
+        {{ meetup.end_time|date:"g:i A" }}
+    </p>
+
 
     <a class="btn" href="{% url 'join_meetup' meetup.id %}">Join</a>
 </div>
