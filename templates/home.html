@@ -1,16 +1,23 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Home{% endblock %}
 {% block content %}
+
 <div class="home-container">
 
   {% if user.is_authenticated %}
     <h1>Hi {{user.first_name}} {{user.last_name}}!</h1>
     <p class="home-text">Welcome to GatherRound, a Place Where You Can Create Spaces to Coversate and Join Communities Here On Campus!</p>
   {% else %}
+    <img src="{% static 'image/d20.png' %}" alt="" class="home-logo">
     <p class="home-text">
-      <a href="{% url 'login' %}">Log In</a>
-      or
-      <a href="{% url 'signup' %}">Create An Account</a>
+      <p class="home-text">Welcome to GatherRound, a Place Where You Can Create Spaces to Coversate and Join Communities Here On Campus!</p>
+        <div class="auth-buttons">
+            <a href="{% url 'login' %}" class="btn">Log In</a>
+            <span class="or-text">or</span>
+            <a href="{% url 'signup' %}" class="btn">Create An Account</a>
+        </div>
+
     </p>
   {% endif %}
 </div>

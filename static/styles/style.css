@@ -270,3 +270,22 @@ logout-form {
 .auth-footer a:hover {
     text-decoration: underline;
 }
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.or-text {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+/* Center just the logo */
+.home-logo {
+    display: block;
+    margin: 0 auto 24px auto; /* centers + space below */
+    width: 70px;              /* adjust size here */
+    height: auto;
+}
