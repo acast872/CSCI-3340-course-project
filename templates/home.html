@@ -2,10 +2,10 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 <div class="home-container">
-  <h1>Welcome</h1>
 
   {% if user.is_authenticated %}
-    <p class="home-text">Hi {{user.first_name}} {{user.last_name}}!</p>
+    <h1>Hi {{user.first_name}} {{user.last_name}}!</h1>
+    <p class="home-text">Welcome to GatherRound, a Place Where You Can Create Spaces to Coversate and Join Communities Here On Campus!</p>
   {% else %}
     <p class="home-text">
       <a href="{% url 'login' %}">Log In</a>

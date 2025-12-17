@@ -20,8 +20,10 @@
 
       <nav>
         {% if user.is_authenticated %}
-          <a href="{% url 'create_meetup' %}">Host a Meetup</a>
-          <a href="{% url 'join_meetups' %}">Join a Meetup</a>
+          <a href="{% url 'room_list' %}">Rooms</a>
+          <a href="{% url 'create_meetup' %}">Create Meetups</a>
+          <a href="{% url 'join_meetups' %}">Join Meetups</a>
+          <a href="{% url 'my_reservations' %}">My Reservations</a>
 
           <form action="{% url 'logout' %}" method="post" class="logout-form">
             {% csrf_token %}
